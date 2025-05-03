@@ -19,3 +19,10 @@ The chatbot should have a tool that gives the current time in a country's capita
 Include instructions on how to run ollama.  
 The project should run on a M3 pro
 
+If you get this error
+java: java.lang.ExceptionInInitializerError
+com.sun.tools.javac.code.TypeTag :: UNKNOWN
+
+then you need to set the IntelliJ project to run Java 21.
+File, project structure, sdk...
+
