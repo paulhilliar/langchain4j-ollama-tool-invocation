@@ -5,7 +5,7 @@ https://github.com/paulhilliar/langchain4j-ollama-tool-invocation
 Really simple demo of Langchain4J tool integration with Ollama running a local LLM 
 
 1. Install Ollama
-2. Run the model: ollama run mistral:latest  (it's about a 4GB download)
+2. Run the model: ollama run mistral-small:latest  (it's about a 14GB download)
 3. Set project JDK to Java 21
 4. Run ChapbotApp
 

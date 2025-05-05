@@ -19,6 +19,7 @@ public class ChatbotApp {
             You are a helpful operations assistant.
             Answer the user's questions politely and use the available tools when necessary.
             If the user asks for the time in a country, use the 'TimeTool'.
+            If the user asks for the temperature in a country, use the 'TemperatureTool'.
             
             If the user asks for the time without specifying a country, ask the user which country they want the time for.
             
@@ -31,26 +32,27 @@ public class ChatbotApp {
     public static void main(String[] args) {
         // --- 1. Configure the LLM (Ollama) ---
         ChatLanguageModel model = OllamaChatModel.builder()
-            .baseUrl("http://localhost:11434/") // Default Ollama URL
-            .modelName("mistral:latest")        // The model you pulled
-            .temperature(0.0)                   // Controls creativity (0.0 to 1.0).  1 is most creative.
+            .baseUrl("http://localhost:11434/")         // Default Ollama URL
+            .modelName("mistral-small:latest")          // The model you pulled
+            .temperature(0.0)                           // Controls creativity (0.0 to 1.0).  1 is most creative.
             .build();
 
         // --- 2. Create the Tool instance ---
         TimeTool timeTool = new TimeTool();
+        TemperatureTool temperatureTool = new TemperatureTool();
 
         // --- 3. Build the AI Agent ---
         Assistant assistant = AiServices.builder(Assistant.class)
             .chatLanguageModel(model)
             .chatMemory(MessageWindowChatMemory.withMaxMessages(10)) // Simple chat memory
-            .tools(timeTool) // Provide the tool instances here
+            .tools(timeTool, temperatureTool)
             .build();
 
         // --- 4. Start the Chat Loop ---
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Chatbot started. Type 'exit' to quit.");
-        System.out.println("Ask me about the time in a country (e.g., 'What time is it in the UK?', 'Current time in France?').");
+        System.out.println("Ask me about the time/weather in a country (e.g., 'What time is it in the UK?', 'Current time in France?', 'What is the time and weather in England?').");
 
         while (true) {
             System.out.print("\nUser: ");
